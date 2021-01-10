@@ -1,5 +1,5 @@
 import React from "react";
-import Auxs from "../../../hoc/Auxs";
+import Auxs from "../../../hoc/Auxs/Auxs";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import classes from "./SideDrawer.module.css";

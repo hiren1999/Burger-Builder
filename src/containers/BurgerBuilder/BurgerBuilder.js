@@ -29,6 +29,7 @@ export class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     axios
       .get(
         "https://my-burger-f485b-default-rtdb.firebaseio.com/ingredients.json"
@@ -90,25 +91,21 @@ export class BurgerBuilder extends Component {
   };
   purchaseContinueHandler = () => {
     // alert("You Continue!");
-    this.setState({ loadin: true });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Hiren",
-        address: {
-          street: "Ahm",
-          zipCode: "382415",
-          country: "India",
-        },
-        email: "test@think.com",
-      },
-      deliveryMethod: "fastest",
-    };
-    axios
-      .post("/orders.json", order)
-      .then((response) => this.setState({ loading: false, purchasing: false }))
-      .catch((error) => this.setState({ loading: false, purchasing: false }));
+    //
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    queryParams.push("price=" + this.state.totalPrice);
+    const queryString = queryParams.join("&");
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString,
+    });
   };
 
   render() {
@@ -154,8 +151,7 @@ export class BurgerBuilder extends Component {
       <Auxs>
         <Modal
           show={this.state.purchasing}
-          modalClosed={this.purchaseCancelHandler}
-        >
+          modalClosed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
         {burger}

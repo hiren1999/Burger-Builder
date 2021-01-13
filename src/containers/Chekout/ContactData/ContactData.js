@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Button from "../../../components/UI/Button/Button";
 import classes from "./ContactData.module.css";
 import Spinner from "../../../components/UI/Spinner/Spinner";
+import { connect } from "react-redux";
 
 export class ContactData extends Component {
   state = {
@@ -18,7 +19,7 @@ export class ContactData extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     const order = {
-      ingredients: this.state.ingredients,
+      ingredients: this.props.ings,
       price: this.props.price,
       customer: {
         name: "Hiren",
@@ -82,5 +83,10 @@ export class ContactData extends Component {
     );
   }
 }
-
-export default ContactData;
+const mapStateToProps = (state) => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice,
+  };
+};
+export default connect(mapStateToProps)(ContactData);

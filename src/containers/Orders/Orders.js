@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axios-orders";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Order from "../../components/Order/Order";
@@ -12,7 +12,7 @@ export class Orders extends Component {
     loading: true,
   };
   componentDidMount() {
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token);
   }
   render() {
     let orders = <Spinner />;
@@ -33,12 +33,13 @@ const mapStateToProps = (state) => {
   return {
     orders: state.order.orders,
     loading: state.order.loading,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchOrders: () => dispatch(actions.fetchOrders()),
+    onFetchOrders: (token) => dispatch(actions.fetchOrders(token)),
   };
 };
 

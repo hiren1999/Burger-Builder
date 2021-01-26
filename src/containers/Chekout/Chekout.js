@@ -5,33 +5,18 @@ import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSumm
 import ContactData from "./ContactData/ContactData";
 
 export class Chekout extends Component {
-  // state = {
-  //   ingredients: null,
-  //   price: 0,
-  // };
-  // componentWillMount() {
-  //   const query = new URLSearchParams(this.props.location.search);
-  //   const ingredients = {};
-  //   let price = 0;
-  //   for (let param of query.entries()) {
-  //     // ['salad', "1"]
-  //     if (param[0] === "price") {
-  //       price = param[1];
-  //     } else {
-  //       ingredients[param[0]] = +param[1];
-  //     }
-  //   }
-  //   this.setState({ ingredients: ingredients, totalPrice: price });
-  // }
-  componentWillMount() {
+  componentDidUpadte() {
     this.props.onInitPurchase();
   }
+
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
   };
+
   checkoutContinuedHandler = () => {
     this.props.history.replace("/checkout/contact-data");
   };
+
   render() {
     let summary = <Redirect to='/' />;
     if (this.props.ings) {
@@ -49,18 +34,11 @@ export class Chekout extends Component {
           <Route
             path={this.props.match.path + "/contact-data"}
             component={ContactData}
-            // render={(props) => (
-            //   <ContactData
-            //     ingredients={this.props.ings}
-            //     price={this.state.totalPrice}
-            //     {...props}
-            //   />
-            // )}
           />
         </div>
       );
     }
-    return <div>{summary}</div>;
+    return summary;
   }
 }
 

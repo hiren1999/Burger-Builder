@@ -6,25 +6,25 @@ import classes from "./SideDrawer.module.css";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 
 const SideDrawer = (props) => {
-  let attachedClasses = [classes.SideDrawer, classes.Close];
-  if (props.open) {
-    attachedClasses = [classes.SideDrawer, classes.Open];
-  }
+    let attachedClasses = [classes.SideDrawer, classes.Close];
+    if (props.open) {
+        attachedClasses = [classes.SideDrawer, classes.Open];
+    }
 
-  return (
-    <Auxs>
-      <Backdrop show={props.open} clicked={props.closed} />
-      <div className={attachedClasses.join(" ")}>
-        <div className={classes.Logo}>
-          <Logo />
-        </div>
+    return (
+        <Auxs>
+            <Backdrop show={props.open} clicked={props.closed} />
+            <div className={attachedClasses.join(" ")} onClick={props.closed}>
+                <div className={classes.Logo}>
+                    <Logo />
+                </div>
 
-        <nav>
-          <NavigationItems isAuthenticated={props.isAuth} />
-        </nav>
-      </div>
-    </Auxs>
-  );
+                <nav>
+                    <NavigationItems isAuthenticated={props.isAuth} />
+                </nav>
+            </div>
+        </Auxs>
+    );
 };
 
 export default SideDrawer;
